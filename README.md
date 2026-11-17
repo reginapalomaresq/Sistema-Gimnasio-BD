@@ -29,6 +29,7 @@ El modelo cumple con el mínimo de 6 tablas propias del negocio (con 5 a 7 colum
 Para cubrir los requerimientos de manipulación y consulta de datos desde la aplicación en C#, se implementaron:
 
 **Filtros dinámicos:** Búsquedas parametrizadas utilizando WHERE, LIKE, BETWEEN e IN sobre socios, fechas de registro y planes.
+
 **Reportes agrupados:** Cálculo de ingresos totales y promedios por plan y año mediante GROUP BY, HAVING, SUM, COUNT, AVG, CAST y ORDER BY.
 
 **Combinaciones (Joins):** Consultas con INNER JOIN para historial de pagos y LEFT JOIN para listar instructores con o sin clases asignadas.
