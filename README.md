@@ -25,7 +25,7 @@ El modelo cumple con el mínimo de 6 tablas propias del negocio (con 5 a 7 colum
 * `Modelo_ER.png` – Diagrama Entidad-Relación exportado desde MySQL Workbench.
 * `/evidencias` – Capturas de instalación de MySQL Server 8.0.46, puerto `3306` y servicio activo.
 
-* Consultas y Vistas Implementadas (03_consultas_vistas.sql)
+Consultas y Vistas Implementadas (03_consultas_vistas.sql)
 Para cubrir los requerimientos de manipulación y consulta de datos desde la aplicación en C#, se implementaron:
 
 Filtros dinámicos: Búsquedas parametrizadas utilizando WHERE, LIKE, BETWEEN e IN sobre socios, fechas de registro y planes.
