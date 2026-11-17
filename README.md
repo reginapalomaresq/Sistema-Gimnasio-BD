@@ -30,8 +30,11 @@ Para cubrir los requerimientos de manipulación y consulta de datos desde la apl
 
 **Filtros dinámicos:** Búsquedas parametrizadas utilizando WHERE, LIKE, BETWEEN e IN sobre socios, fechas de registro y planes.
 **Reportes agrupados:** Cálculo de ingresos totales y promedios por plan y año mediante GROUP BY, HAVING, SUM, COUNT, AVG, CAST y ORDER BY.
+
 **Combinaciones (Joins):** Consultas con INNER JOIN para historial de pagos y LEFT JOIN para listar instructores con o sin clases asignadas.
+
 **Subconsultas:** Una subconsulta en cláusula WHERE (socios con pagos superiores al promedio) y una subconsulta correlacionada en SELECT (conteo de asistencias por socio).
+
 **Vistas del sistema (3):**
 1. `vw_socios_membresias: Directorio general de socios con su plan y costo mensual.`
 2. `vw_historial_pagos: Detalle completo de cobros realizados por socio y método de pago.`
