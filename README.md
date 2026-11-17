@@ -40,3 +40,21 @@ Para cubrir los requerimientos de manipulación y consulta de datos desde la apl
 1. `vw_socios_membresias: Directorio general de socios con su plan y costo mensual.`
 2. `vw_historial_pagos: Detalle completo de cobros realizados por socio y método de pago.`
 3. `vw_ocupacion_clases: Estadísticas de asistencia y calificación promedio por clase e instructor.`
+
+## Poblado de Datos Iniciales (`02_datos.sql`) 
+
+Se diseñó el script de carga inicial respetando la jerarquía de integridad referencial (tablas catálogo primero, seguidas de entidades dependientes y tablas transaccionales/asociativas), insertando **15 registros por tabla (90 registros en total)**: 
+1. **`membresias` (15):** Planes activos e inactivos con distintas duraciones y tarifas. 
+2. **`instructores` (15):** Entrenadores con especialidades y salarios validados. 
+3. **`socios` (15):** Clientes asignados a membresías vigentes y distintos estatus. 
+4. **`clases` (15):** Sesiones grupales vinculadas a instructores y cupos máximos. 
+5. **`pagos` (15):** Transacciones históricas con distintos métodos de pago (`Efectivo`, `Tarjeta`, `Transferencia`). 
+6. **`asistencias` (15):** Registros de asistencia de socios a clases con fecha y calificación. 
+
+## Tecnologías y Buenas Prácticas del Proyecto 
+
+* **SGBD:** MySQL Server 8.0.46 (Puerto `3306`) y MySQL Workbench. 
+
+* **Lenguaje Huésped:** C# (.NET 8 Windows Forms) conectado vía **ADO.NET** (`MySql.Data`) sin uso de ORMs. 
+
+* **Seguridad:** Consultas 100% parametrizadas, manejo de excepciones `MySqlException`, bloques `using` y cadena de conexión externa en `App.config`. 
