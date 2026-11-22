@@ -68,3 +68,17 @@ Se diseñó el script de carga inicial respetando la jerarquía de integridad re
   - La operación de cobro de membresía actualiza de forma atómica las tablas `pagos` y `socios` mediante control explícito de `COMMIT` y `ROLLBACK`.
 - **Pruebas de Concurrencia en Dos Sesiones Simultáneas (Competencia 4):**
   - Se contrastaron en MySQL Workbench los niveles de aislamiento `READ COMMITTED` (demostrando *lectura no repetible* al modificar el precio de una membresía desde la Sesión B mientras la Sesión A mantenía abierta su transacción) y `SERIALIZABLE` (evidenciando bloqueos compartidos de fila en la Sesión A que detienen el `UPDATE` de la Sesión B hasta confirmar con `COMMIT`).
+
+## SQL Procedural (`04_procedural.sql` – Competencia 5)
+**Responsable:** David Wong Reyes
+
+Se implementaron objetos almacenados en MySQL para automatizar reglas de negocio, cálculos frecuentes y auditoría directamente en el servidor:
+
+- **6 Stored Procedures:**
+  - `sp_registrar_pago_membresia`: Registra el cobro de membresía y activa al socio con parámetro de salida `OUT` y manejo de errores (`DECLARE EXIT HANDLER FOR SQLEXCEPTION` con `ROLLBACK`).
+  - `sp_registrar_asistencia`: Valida cupo disponible y estatus activo del socio lanzando `SIGNAL SQLSTATE '45000'` si no cumple.
+  - `sp_alta_socio`, `sp_aumentar_salario_instructor` (con parámetro `OUT`), `sp_suspender_socio` y `sp_reporte_ingresos_fechas`.
+- **3 Funciones Escalares:** `fn_total_pagado_socio`, `fn_cupos_disponibles_hoy` y `fn_antiguedad_dias`.
+- **3 Triggers:**
+  - `trg_after_insert_pago` y `trg_after_update_pago`: Registran automáticamente en la tabla `bitacora_pagos` cada nuevo pago o modificación de monto (auditoría).
+  - `trg_before_insert_socio`: Valida antes de insertar un socio que su plan de membresía tenga estatus `Activa`.
