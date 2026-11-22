@@ -57,4 +57,14 @@ Se diseñó el script de carga inicial respetando la jerarquía de integridad re
 
 * **Lenguaje Huésped:** C# (.NET 8 Windows Forms) conectado vía **ADO.NET** (`MySql.Data`) sin uso de ORMs. 
 
-* **Seguridad:** Consultas 100% parametrizadas, manejo de excepciones `MySqlException`, bloques `using` y cadena de conexión externa en `App.config`. 
+* **Seguridad:** Consultas 100% parametrizadas, manejo de excepciones `MySqlException`, bloques `using` y cadena de conexión externa en `App.config`.
+
+## Control de Acceso, Concurrencia y Transacciones (`05_seguridad.sql` y `06_concurrencia.sql` – Competencias 3 y 4)
+**Responsable:** Luis Javier Fierros Hurtado
+
+- **Control de Acceso y Seguridad (Competencia 3):**
+  - Se crearon 3 roles (`rol_admin_gym`, `rol_recepcion` con `REVOKE DELETE` explícito, y `rol_instructor` con lectura restringida únicamente a vistas) asignados a los usuarios `usr_admin`, `usr_recepcion` y `usr_instructor`, evitando el uso de `root` en la aplicación.
+- **Transacciones y Propiedades ACID (Competencia 4):**
+  - La operación de cobro de membresía actualiza de forma atómica las tablas `pagos` y `socios` mediante control explícito de `COMMIT` y `ROLLBACK`.
+- **Pruebas de Concurrencia en Dos Sesiones Simultáneas (Competencia 4):**
+  - Se contrastaron en MySQL Workbench los niveles de aislamiento `READ COMMITTED` (demostrando *lectura no repetible* al modificar el precio de una membresía desde la Sesión B mientras la Sesión A mantenía abierta su transacción) y `SERIALIZABLE` (evidenciando bloqueos compartidos de fila en la Sesión A que detienen el `UPDATE` de la Sesión B hasta confirmar con `COMMIT`).
