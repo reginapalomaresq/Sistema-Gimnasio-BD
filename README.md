@@ -77,6 +77,16 @@ Se implementaron objetos almacenados en MySQL para automatizar reglas de negocio
 - **6 Stored Procedures:**
   - `sp_registrar_pago_membresia`: Registra el cobro de membresía y activa al socio con parámetro de salida `OUT` y manejo de errores (`DECLARE EXIT HANDLER FOR SQLEXCEPTION` con `ROLLBACK`).
   - `sp_registrar_asistencia`: Valida cupo disponible y estatus activo del socio lanzando `SIGNAL SQLSTATE '45000'` si no cumple.
+ 
+## Aplicación de Escritorio en C# (`SistemaGimnasioApp/` – Competencia 6)
+**Responsable:** Regina Palomares Quintero
+
+Se desarrolló la aplicación cliente en **Visual Studio Community 2022** utilizando **C# (.NET 8 Windows Forms)** conectada a MySQL mediante **ADO.NET (`MySql.Data`)** sin uso de ORMs:
+
+- **Inicio de Sesión por Perfil (`FrmLogin`) y Menú Dinámico (`FrmMenu`):** Autenticación directa contra los usuarios de MySQL (`usr_admin`, `usr_recepcion`, `usr_instructor`) ocultando módulos según permisos y demostrando bloqueos de privilegios en vivo.
+- **Módulos CRUD y Filtros (`FrmSocios` y `FrmCrudTablas`):** Alta, consulta, modificación y baja parametrizada (`@parametro`) para las 6 tablas del sistema, con filtros dinámicos por texto (`LIKE`) y rango de fechas (`BETWEEN`).
+- **Visor de Reportes (`FrmReportes`):** Consumo directo de las 3 vistas (`vw_socios_membresias`, `vw_historial_pagos`, `vw_ocupacion_clases`), agrupamientos con `HAVING`, subconsultas, funciones escalares y operador `UNION`.
+- **Cobro Transaccional (`FrmPagos`):** Ejecución de `MySqlTransaction` en C# con simulación de fallo para evidenciar `COMMIT` y `ROLLBACK`, además de manejo centralizado de excepciones `MySqlException` en la capa `DAO`.
   - `sp_alta_socio`, `sp_aumentar_salario_instructor` (con parámetro `OUT`), `sp_suspender_socio` y `sp_reporte_ingresos_fechas`.
 - **3 Funciones Escalares:** `fn_total_pagado_socio`, `fn_cupos_disponibles_hoy` y `fn_antiguedad_dias`.
 - **3 Triggers:**
